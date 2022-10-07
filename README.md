@@ -76,6 +76,6 @@ MIT License. More information see `LICENSE`
 
 ## Contact
 
-Caili Zhong - caili.zhong21@imperial.ac.uk<br>
+Caili Zhong - zhongcaili17@126.com<br>
 Sibo Cheng - sibo.cheng@imperial.ac.uk<br>
 Matthewm Kasoar - m.kasoar12@imperial.ac.uk<br>
