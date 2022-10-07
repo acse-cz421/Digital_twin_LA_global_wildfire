@@ -1,8 +1,10 @@
-# IRP-ca421
+# Reduced order digital twin and latent data assimilation for global wildfire probability prediction
 
 ## About The Project
 
-The occurrence of forest fires can cause severe damage to the vegetation as well as to the soil in the ecosystem and can also indirectly affect the climate. The analysis of the interaction between wildfires and environmental factors is used to predict the occurrence of fires, which is the current JULES-INFERNO project. However, this prediction project uses mathematical methods to simulate vegetation and the environment, so that it can suffer from modelling difficulties and high computational costs. Deep learning models have an advantage in handling large amounts of data. They can reduce the computational cost of subsequent prediction models by extracting data features through Reduced Order Modelling (ROM) and compressing the data to a low-dimensional latent space. Therefore, this study proposes a JULES-INFERNO-based surrogate model based on ROM, deep learning prediction networks and Latent data Assimilation to improve the efficiency of physical wildfire prediction models.
+
+The occurrence of forest fires can cause severe damage to the vegetation as well as to the soil in the ecosystem and can also indirectly affect the climate. The analysis of the interaction between wildfires and environmental factors is used to predict the occurrence of fires in the current state-of-the-art JULES-INFERNO global fire risk prediction model. However, due to the high data dimensionality and the complexity of differential equations, this model can suffer from modelling difficulties and high computational costs. Deep learning-based digital twins have an advantage in handling large amounts of data. They can reduce the computational cost of subsequent prediction models by extracting data features through Reduced Order Modelling (ROM) and compressing the data to a low-dimensional latent space. This study proposes a JULES- INFERNO-based digital twin model using ROM techniques and deep learning prediction networks to improve the efficiency of global wildfire predictions. In addition, the model implements iterative prediction, allowing fires in subsequent years to be predicted from current year data. In order to avoid the accumulation of errors from iterative prediction, Latent data Assimilation (LA) is applied to the prediction process to periodically adjust the prediction results to ensure stability and sustainability of the prediction.
+
 
 ## Getting Started
 
@@ -41,23 +43,31 @@ temperature (``LGM/drive/climate/CRU-NCEP-v7-LGM-n96e/tair``), humidity (``LGM/d
 Five wildfire (Grid box mean burnt area fraction) datasets from 1961 to 1990: P1(``LGM/output/p1``), P2(``LGM/output/p2``), P2(``LGM/output/p2``), P3(``LGM/output/p1``), P4(``LGM/output/p4``) and P5(``LGM/output/p5``). Each set was driven by the same climatic conditions (1961 to 1990). However, JULES-INFERNO applied different initial internal states to ensure the robustness of its model; the internal state of P_1 was randomized, and the initial internal states of the subsequent experimental results were all the last internal states of the previous one. Therefore, although each result was for 1961-1990, there was variability.  Additionally, each dataset contaions 360 snapshot, each size of snapshot is 112*192.
 
 
-## Submission
+## Implementation
 
-In the repository, the final report is in `/reports`. 
+### Data Prepocessing
 
-The code to implement this project is in the `/source`.
+`/Data_prepocessing/JULES_Data_preprocessing.ipynb` describes how to extract the specified features from the original data (netCDF4 files) and generate CSV files for storage.
 
-Pre-processing for data: `/Source/JULES_Data_preprocessing.ipynb`.
+### Climate data Encoding
 
-The 20-dinmentional Convolutional Autoencoder (CAE) surrogaete model: `/Source/JULES_CAE_LSTM_20.ipynb`.
+`/Climate_CAE_construction/` directory stores CAE implementations for 4 climate conditions, including data processing, CAE model building, training and testing codes.
 
-The 100-dinmentional CAE surrogaete model: `/Source/JULES_CAE_LSTM_100.ipynb`.
+`/Trained_Models/para_mod/` catalogue contains trained CAE models for four climatic conditions respectively.
 
-The 20-dinmentional Principal Component Analysis (PCA) surrogaete model: `/Source/JULES_PCA_LSTM_20.ipynb`.
+### Main Models
 
-The 100-dinmentional PCA surrogaete model: `/Source/JULES_PCA_LSTM_100.ipynb`.
+Files in `/AE_LSTM_LA/` directory contains data processing, ROM, LSTM, LA, performance anaylsis and performance comparison code. There are comparisons between different ROMs, as well as comparisons with and without LA.
 
-Apart from that the, files for constructing CAEs on climate data are in the `/Source/Climate_CAE_construction` folder. The `/Source/JULES` folder holds the trained models for this project. The `/Source/output_figure` folder holds the output images for this project.
+The difference lies in ROM. `/AE_LSTM_LA/CAE_LSTM_LA_20.ipynb` compresses the original data into a 20-dimensional latent space by constructing CAE, `/AE_LSTM_LA/CAE_LSTM_LA_100.ipynb` compresses the original data into a 100-dimensional latent space by constructing CAE, `/AE_LSTM_LA/PCA_LSTM_LA_20.ipynb` compresses the original data into a 20-dimensional latent space by constructing PCA, and `/AE_LSTM_LA/PCA_LSTM_LA_100.ipynb` compresses the original data into a 100-dimensional latent space by constructing PCA.
+
+`/Trained_Models/` catalogue contains 2 trained CAE models for fire data, one is to compress the data into 20 dimensions, and the other is to compress it into 100 dimensions. In addition, this directory contains 4 ROM_LSTM trained models: PCA_20_LSTM, PCA_100_LSTM, CAE_20_LSTM, CAE_100_LSTM.
+
+
+### Output
+
+`/output_figure/` folder holds the output images for this project, includes results' analysis and comparison.
+
 
 ## License
 
