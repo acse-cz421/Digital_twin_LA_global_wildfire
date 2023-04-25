@@ -49,6 +49,8 @@ Five wildfire (Grid box mean burnt area fraction) datasets from 1961 to 1990: P1
 
 `/Data_prepocessing/JULES_Data_preprocessing.ipynb` describes how to extract the specified features from the original data (netCDF4 files) and generate CSV files for storage.
 
+`/Prepocessed_data/` directory stores processed data, gb_data.csv, gb_data2.csv, gb_data3.csv, gb_data4.csv, gb_data5.csv are five Five wildfire (Grid box mean burnt area fraction) datasets, qair.csv, rain.csv, tair.csv, lightning.csv are temperature, rainfall, humidity and lightning datasets.
+
 ### Climate data Encoding
 
 `/Climate_CAE_construction/` directory stores CAE implementations for 4 climate conditions, including data processing, CAE model building, training and testing codes.
